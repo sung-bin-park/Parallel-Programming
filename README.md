@@ -24,7 +24,7 @@ To using CUDA functions on C++, you have to add below.
 
 CGPUACC.cu
 
-#include "CGPUACC.cuh"
+#include "CGPUACC.cuh"  
 #include "cuda.h"
 #include <iostream>
 #include <cufft.h>
