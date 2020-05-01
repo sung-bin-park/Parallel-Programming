@@ -25,34 +25,34 @@ To using CUDA functions on C++, you have to add below.
 CGPUACC.cu
 
 #include "CGPUACC.cuh"  
-#include "cuda.h"
-#include <iostream>
-#include <cufft.h>
-#include "cublas_v2.h"
-#include <stdio.h>
-#include <stdlib.h>
-CGPUACC::CGPUACC(void)
-{
-}
-CGPUACC::~CGPUACC(void)
-{
-}
+#include "cuda.h"  
+#include <iostream>  
+#include <cufft.h>  
+#include "cublas_v2.h"  
+#include <stdio.h>  
+#include <stdlib.h>  
+CGPUACC::CGPUACC(void)  
+{  
+}  
+CGPUACC::~CGPUACC(void)  
+{  
+}  
 
 CGPUACC.cuh
 
-#pragma once
-#include <cuda_runtime.h>
-#ifdef __cplusplus 
-extern "C" {
-#endif
-	class CGPUACC
-	{
-	public:
-		CGPUACC(void);
-		virtual ~CGPUACC(void);
-	};
-#ifdef __cplusplus 
-}
-#endif
-
+#pragma once  
+#include <cuda_runtime.h>  
+#ifdef __cplusplus   
+extern "C" {  
+#endif  
+	class CGPUACC  
+	{  
+	public:  
+		CGPUACC(void);  
+		virtual ~CGPUACC(void);  
+	};  
+#ifdef __cplusplus   
+}  
+#endif  
+  
 When you added above code, then you can using CUDA functions on C++.
