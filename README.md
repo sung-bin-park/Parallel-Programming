@@ -1,4 +1,4 @@
-#Start Parallel_Programming using CUDA & Visual Studio 2019 for C++
+# Start Parallel_Programming using CUDA & Visual Studio 2019 for C++
 
 1.You have to install CUDA
 ->https://developer.nvidia.com/cuda-downloads
