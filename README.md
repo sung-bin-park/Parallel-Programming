@@ -43,7 +43,7 @@ CGPUACC.cuh
 #pragma once
 #include <cuda_runtime.h>
 #ifdef __cplusplus 
-extern "C" {//<-- extern ½ÃÀÛ
+extern "C" {
 #endif
 	class CGPUACC
 	{
