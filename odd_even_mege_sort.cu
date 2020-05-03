@@ -11,22 +11,28 @@ using namespace std;
 #define BLOCK 4096
 #define SWAP(x,y) { x = x + y; y = x - y; x = x - y; }
 
-//call host
-__global__ void odd_even_merge(int* data, int index) {
+//odd
+__global__ void odd_merge(int* data, int index) {
     int i;
     //distinct task id 
     i = threadIdx.x + blockDim.x * blockIdx.x;
-    //exit condition
-    if (i >= (THREAD * BLOCK / 2) - 1 && index % 2 != 0)return;
-    //even state
-    if (index % 2 == 0) {
-        if (data[i * 2] > data[i * 2 + 1])
-            SWAP(data[i * 2], data[i * 2 + 1]);
-    }
+   
     //odd state
-    else {
-        if (data[i * 2 + 1] > data[i * 2 + 2])
-            SWAP(data[i * 2 + 1], data[i * 2 + 2]);
+    if(index % 2 == 1 && index < BLOCK * THREAD - 1){
+        if (data[i] > data[i + 1])
+            SWAP(data[i], data[i + 1]);
+    }
+}
+//even
+__global__ void even_merge(int* data, int index) {
+    int i;
+    //distinct task id 
+    i = threadIdx.x + blockDim.x * blockIdx.x;
+
+    //even state
+    if (index % 2 == 0 && index < BLOCK * THREAD - 1) {
+        if (data[i] > data[i + 1])
+            SWAP(data[i], data[i + 1]);
     }
 }
 
@@ -57,8 +63,19 @@ int main() {
 
     //start odd_even_merge_sort
     start = clock();
-    for (int i = 0; i < size; i++)odd_even_merge << <BLOCK, THREAD >> > (dev_data, i);
-    cout << "time for 131072 datas to sort: " << (double)(clock() - start) << "ms\n";
+    int half = size / 2;
+
+    dim3 block_dim(BLOCK, 1);
+    dim3 thread_dim(THREAD, 1);
+
+    for (int i = 0; i < half; i++) {
+        even_merge << <block_dim, thread_dim, dev_size >> > (dev_data, size);
+        if (i != half - 1)
+            odd_merge << <block_dim, thread_dim, dev_size >> > (dev_data, size);
+        if (i == half - 1 && size % 2 == 0)
+            odd_merge << <block_dim, thread_dim, dev_size >> > (dev_data, size);
+    }
+    cout << "time for "<<BLOCK*THREAD<<" datas to sort: " << (double)(clock() - start) << "ms\n";
 
     //ended sorting and memcpy device to host
     cudaMemcpy(data, dev_data, dev_size, cudaMemcpyDeviceToHost);
