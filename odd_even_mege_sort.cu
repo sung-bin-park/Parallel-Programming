@@ -66,6 +66,6 @@ int main() {
     //free all memory
     cudaFree(dev_data);
     free(data);
-    cout << "Odd_Even_Merge_Sort for CUDA 12141699 ¹Ú¼ººó";
+    cout << "Odd_Even_Merge_Sort for CUDA";
     return 0;
 }
