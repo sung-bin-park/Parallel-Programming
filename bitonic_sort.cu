@@ -82,6 +82,6 @@ int main() {
 
         cout << "time for 131072 datas to sort: " << (double)(clock() - start) << "ms\n";
         free(data3);
-    cout << "Bitonic_Sort for CUDA 12141699 ¹Ú¼ººó";
+    cout << "Bitonic_Sort for CUDA ";
     return 0;
 }
